@@ -68,7 +68,13 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = TODO()
+fun ageDescription(age: Int): String = when {
+    age % 10 == 1 && age % 100 != 11 -> "$age год"
+    age % 10 in 2 .. 4 && age % 100 !in 12..14 -> "$age года"
+    else -> "$age лет"
+}
+
+
 
 /**
  * Простая (2 балла)
@@ -81,7 +87,19 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double = TODO()
+): Double {
+    val s1 = v1 * t1
+    val s2 = v2 * t2
+    val s3 = v3 * t3
+    val midway = (s1 + s2 + s3) / 2
+    return when {
+        midway <= s1 -> midway / v1
+        midway <= s2 + s1 -> (midway - s1) / v2 + t1
+        else -> {
+            (midway - s2 - s1) / v3 + t1 + t2
+        }
+    }
+}
 
 /**
  * Простая (2 балла)
@@ -96,7 +114,11 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int {
+    var panic = 0
+    if (kingY = rookY1)
+}
+
 
 /**
  * Простая (2 балла)
