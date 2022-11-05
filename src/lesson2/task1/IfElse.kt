@@ -3,7 +3,9 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
@@ -70,11 +72,9 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  */
 fun ageDescription(age: Int): String = when {
     age % 10 == 1 && age % 100 != 11 -> "$age год"
-    age % 10 in 2 .. 4 && age % 100 !in 12..14 -> "$age года"
+    age % 10 in 2..4 && age % 100 !in 12..14 -> "$age года"
     else -> "$age лет"
 }
-
-
 
 /**
  * Простая (2 балла)
@@ -116,7 +116,9 @@ fun whichRookThreatens(
     rookX2: Int, rookY2: Int
 ): Int {
     var panic = 0
-    if (kingY = rookY1)
+    if (kingY == rookY1 || kingX == rookX1) panic = 1
+    if (kingY == rookY2 || kingX == rookX2) panic += 2
+    return panic
 }
 
 
@@ -134,7 +136,12 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int = TODO()
+): Int {
+    var panic = 0
+    if (kingX == rookX || kingY == rookY) panic = 1
+    if (abs(kingX - bishopX) == abs(kingY - bishopY)) panic += 2
+    return panic
+}
 
 /**
  * Простая (2 балла)
@@ -144,7 +151,23 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val minimumSides = minOf(a, b, c)
+    val maximumSides = maxOf(a, b, c)
+    val combinedLength = (a+b+c)
+    val thirdSides = combinedLength - minimumSides - maximumSides
+
+    return when {
+        maximumSides >= minimumSides + thirdSides -> -1
+        maximumSides.pow(2.0) < minimumSides.pow(2.0)
+                + thirdSides.pow(2.0) -> 0
+
+        maximumSides.pow(2.0) == minimumSides.pow(2.0)
+                + thirdSides.pow(2.0) -> 1
+
+        else -> 2
+    }
+}
 
 /**
  * Средняя (3 балла)
