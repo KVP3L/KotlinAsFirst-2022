@@ -2,6 +2,10 @@
 
 package lesson3.task1
 
+import lesson9.task2.generateRectangles
+import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -72,7 +76,15 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var i = 1
+    var k = abs(n) / 10
+    while (k > 0) {
+        i += 1
+        k /= 10
+    }
+    return i
+}
 
 /**
  * Простая (2 балла)
@@ -80,21 +92,39 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    if (n < 3) return 1
+    var a = 1
+    var b = 1
+    for (i in 3..n) {
+        val c = a + b
+        a = b
+        b = c
+    }
+    return b
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    if (isPrime(n)) return n
+    var d = 2
+    while (d * d <= n) {
+        if (n % d == 0) return d
+        d += 1
+    }
+    return d
+}
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая (2 балла)
@@ -112,7 +142,16 @@ fun maxDivisor(n: Int): Int = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var k = 0
+    var n = x
+    while (n != 1) {
+        if (n % 2 == 0) n /= 2
+        else n = n * 3 + 1
+        k += 1
+    }
+    return k
+}
 
 /**
  * Средняя (3 балла)
@@ -120,7 +159,7 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int = m / digitCountInNumber(m, n) / m + n
 
 /**
  * Средняя (3 балла)
@@ -138,7 +177,15 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var x = n
+    var reverted = 0
+    while (x != 0) {
+        reverted = reverted * 10 + x % 10
+        x /= 10
+    }
+    return reverted
+}
 
 /**
  * Средняя (3 балла)
@@ -149,7 +196,7 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя (3 балла)
@@ -159,7 +206,16 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    val k = n % 10
+    var i = n / 10
+    while (i > 0) {
+        if (i % 10 != k) return true
+        else
+            i /= 10
+    }
+    return false
+}
 
 /**
  * Средняя (4 балла)
