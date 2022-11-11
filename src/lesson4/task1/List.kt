@@ -212,12 +212,11 @@ fun factorize(n: Int): List<Int> {
     var i = 2
     var x = n
     val list = mutableListOf<Int>()
-    while (i > 0) {
+    for (i in 2..n ) {
         while (x % i == 0) {
             x /= i
-            list += i
+            list.add(i)
         }
-        i += 1
     }
     return list
 }
