@@ -2,11 +2,8 @@
 
 package lesson3.task1
 
-import lesson9.task2.generateRectangles
-import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.sqrt
+import lesson1.task1.sqr
+import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -168,7 +165,14 @@ fun lcm(m: Int, n: Int): Int =  TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var k = 17
+    for (i in 2..m) {
+        if (m % i == 0 && n % i == 0)
+            k = 0
+    }
+    return k != 0
+}
 
 /**
  * Средняя (3 балла)
@@ -248,7 +252,16 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var a = 0
+    var b = 0
+    while (a < n) {
+        b++
+        a += digitNumber(sqr(b))
+    }
+    return ((b * b) / 10.0.pow((a - n).toDouble()).toInt() % 10)
+}
+
 
 /**
  * Сложная (5 баллов)
