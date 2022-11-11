@@ -3,7 +3,6 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import ru.spbstu.kotlin.generate.assume.retry
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -130,8 +129,9 @@ fun abs(v: List<Double>): Double = sqrt(v.map { it * it }.sum())
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    if (list.size == 0) return 0.0
-    else return  list.sum() / list.size
+    if (list.isEmpty()) {
+        return 0.0
+    } else return list.sum() / list.size
 }
 
 /**
@@ -210,14 +210,14 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
  */
 fun factorize(n: Int): List<Int> {
     var i = 2
-    var list = mutableListOf<Int>()
-    while (i <= n) {
-        if (n % i == 0)
-            list.add(i)
-        else {
-            if (i == 2) i++
-            else i += 2
+    var x = n
+    val list = mutableListOf<Int>()
+    while (i > 0) {
+        while (x % i == 0) {
+            x /= i
+            list += i
         }
+        i += 1
     }
     return list
 }
