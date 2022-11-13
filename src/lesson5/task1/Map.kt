@@ -243,7 +243,14 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean {
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+    for (char in list) {
+        result[char] = result.getOrDefault(char, 0) + 1
+    }
+    return result.filterValues { it != 1 }
+}
+
 
 /**
  * Средняя (3 балла)
