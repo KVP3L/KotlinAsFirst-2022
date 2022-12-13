@@ -151,7 +151,7 @@ fun rookOrBishopThreatens(
 fun triangleKind(a: Double, b: Double, c: Double): Int {
     val minimumSides = minOf(a, b, c)
     val maximumSides = maxOf(a, b, c)
-    val combinedLength = (a+b+c)
+    val combinedLength = a + b + c
     val thirdSides = combinedLength - minimumSides - maximumSides
 
     return when {

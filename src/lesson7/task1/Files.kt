@@ -99,9 +99,22 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val correct = mapOf('я' to 'а', 'ы' to 'и', 'ю' to 'у')
+    val flagLetters = listOf('щ', 'ш', 'ч', 'ж')
+    File(outputName).bufferedWriter().use { writer ->
+        File(inputName).forEachLine { line ->
+            val result = StringBuilder(line[0].toString())
+            for (i in 1 until line.length) {
+                val letter = line[i]
+                val letterLow = line[i].lowercaseChar()
+                if (letterLow in correct && line [i -1].lowercaseChar() in flagLetters)
+                    result.append(if (letter.isLowerCase()) correct[letterLow]!! else correct[letterLow]!!.uppercaseChar())
+                else result.append(letter)
+            }
+            writer.write("$result\n")
+        }
+    }
 }
-
 /**
  * Средняя (15 баллов)
  *
@@ -120,7 +133,15 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val lines = File(inputName).readLines().map { it.trim() }
+    val length = if (lines.isNotEmpty()) lines.maxOf { it.length }
+    else 0
+    File(outputName).bufferedWriter().use { writer ->
+        lines.forEach { line ->
+            val indent = (length - line.length) / 2
+            writer.write(" ".repeat(indent) + line + "\n")
+        }
+    }
 }
 
 /**
@@ -240,7 +261,18 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    TODO()
+    var maxLength = 0
+    val result = mutableListOf<String>()
+    for (line in File(inputName).readLines()) {
+        if (line.lowercase().toSet().size == line.length) {
+            if (line.length > maxLength) {
+                maxLength = line.length
+                result.clear()
+            } else if (line.length < maxLength) continue
+            result.add(line)
+        }
+    }
+    File(outputName).writeText(result.joinToString(separator = ", "))
 }
 
 /**
